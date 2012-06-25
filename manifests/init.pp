@@ -32,6 +32,7 @@ class java7 {
 
 	exec { "move-java-directory":
 		command => "/bin/mv jdk${version} /usr/lib/jvm/jdk${version}",
+		creates => "/usr/lib/jvm/jdk${version}",
 		cwd => "/tmp",
 		user => "root",
 		require => File["/usr/lib/jvm"],
