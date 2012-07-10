@@ -31,11 +31,16 @@ class java7 {
 	}
 
 	exec { "move-java-directory":
-		command => "/bin/mv jdk${version} /usr/lib/jvm/jdk${version}",
+		command => "/bin/cp -r jdk${version} /usr/lib/jvm/jdk${version}",
 		creates => "/usr/lib/jvm/jdk${version}",
 		cwd => "/tmp",
 		user => "root",
 		require => File["/usr/lib/jvm"],
+		notify => [
+			Exec["install-java-alternative"],
+			Exec["install-javac-alternative"],
+			Exec["install-javaws-alternative"]
+		]
 	}
 	
 	file { "/usr/lib/jvm/java-7-oracle":
@@ -46,16 +51,19 @@ class java7 {
 	
 	exec { "install-java-alternative":
 		command => '/usr/sbin/update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/java-7-oracle/bin/java" 1',
+		refreshonly => true,
 		require => File["/usr/lib/jvm/java-7-oracle"],
 	}
 
 	exec { "install-javac-alternative":
 		command => '/usr/sbin/update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/java-7-oracle/bin/javac" 1',
+		refreshonly => true,
 		require => File["/usr/lib/jvm/java-7-oracle"],
 	}
 
 	exec { "install-javaws-alternative":
 		command => '/usr/sbin/update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/jvm/java-7-oracle/bin/javaws" 1',
+		refreshonly => true,
 		require => File["/usr/lib/jvm/java-7-oracle"],
 	}
 }

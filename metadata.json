@@ -13,7 +13,7 @@
     "README.md": "fe0875430bebd5463a4faa8faa570e87",
     "files/jdk-7u5-linux-i586.tar.gz": "afb0c764c301f9475dbd3cd0197f6d29",
     "files/jdk-7u5-linux-x64.tar.gz": "a658f817e1d9611468a4481280a96668",
-    "manifests/init.pp": "503fa02acf4feed4084f83a27cb2d872",
+    "manifests/init.pp": "5db6df45f63bfbf852525e7e3591b4ff",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec/spec_helper.rb": "ca19ec4f451ebc7fdb035b52eae6e909",
     "tests/Vagrantfile": "cf0d9d053bd160ad4abf4273c3d1c0e1",
