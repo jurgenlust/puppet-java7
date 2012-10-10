@@ -1,8 +1,7 @@
-class java7 {
-	$version = "1.7.0_05"
+class java7($version = '1.7.0_07') {
 	$tarball = $architecture ? {
-		"amd64" => "jdk-7u5-linux-x64.tar.gz",
-		default => "jdk-7u5-linux-i586.tar.gz",
+		"amd64" => "jdk-${version}-linux-x64.tar.gz",
+		default => "jdk-${version}-linux-i586.tar.gz",
 	}
 	
 	package { "java-common":
