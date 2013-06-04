@@ -1,18 +1,30 @@
-class java7 {
-	$version = "1.7.0_05"
+class java7 ($version = "1.7.0_05", $tarball_name_prefix = "jdk-7u5-linux", $jdk_path = "") {
+
 	$tarball = $architecture ? {
-		"amd64" => "jdk-7u5-linux-x64.tar.gz",
-		default => "jdk-7u5-linux-i586.tar.gz",
+		"amd64" => "${tarball_name_prefix}-x64.tar.gz",
+		default => "${tarball_name_prefix}-i586.tar.gz",
 	}
 	
 	package { "java-common":
 		ensure => latest,
 	}
 	
-	file { "java-tarball":
-		ensure => file,
-		path => "/tmp/$tarball",
-		source => "puppet:///modules/java7/${tarball}", 
+	if jdk_path == "" {
+		file { "java-tarball":
+			ensure => file,
+			path => "/tmp/$tarball",
+			source => "puppet:///modules/java7/${tarball}", 
+		}
+	}
+	else {
+		exec { "cp-java-tarball-to-tmp":
+			command => "cp $jdk_path/$tarball /tmp/$tarball",
+			unless => "[ -f /tmp/$tarball]"
+		} ->
+		file { "java-tarball":
+			ensure => file,
+			path => "/tmp/$tarball",
+		}
 	}
 	
 	exec { "extract-java-tarball":
